@@ -1,0 +1,21 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+int func (char *str)
+{
+char buffer[12];
+/* The following statement has a buffer overflow problem */
+//hello
+strcpy(buffer, str);
+return 1;
+}
+int main(int argc, char **argv)
+{
+char str[517];
+FILE *badfile;
+badfile = fopen("badfile", "r");
+fread(str, sizeof(char), 517, badfile);
+func (str);
+printf("Returned Properly\n");
+return 1;
+}
